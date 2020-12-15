@@ -12,7 +12,7 @@ import StayHome from './img/stayhome.svg';
 import Exercicios from './img/exercicios.svg';
 import Distanciamento from './img/distanciamento.svg';
 import TapToTop from '../src/Components/TapToTop';
-import Api from '../src/api/Api';
+import Api from './api/Api';
 import Numeral from 'numeral';
 import 'numeral/locales/pt-pt';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -60,7 +60,7 @@ export default function App() {
     /* setLoading(true); */
     const getAngola = async () => {
         /* setLoading(true); */
-        let res =await Api.getAngolaPais("angola");
+        let res =await Api.getAngolaPais();
         if (isActive) {
             setData(res);
             /* setLoading(false); */
@@ -305,7 +305,7 @@ export default function App() {
         <div className="meses">
           <div className="mes1">
             <h1>Situação da Covid-19 nos últimos 30 dias</h1>
-            <GraficoLinhaArea titulo="Covid-19 30 dias"></GraficoLinhaArea>
+            <GraficoLinhaArea ></GraficoLinhaArea>
           </div>
           {/* <div className="mes2">
             
