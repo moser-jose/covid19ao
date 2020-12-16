@@ -9,27 +9,25 @@ import Lavar from './img/lavarmaos.svg';
 import Mortes from './img/mortes.svg';
 import Casos from './img/casos.svg';
 import StayHome from './img/stayhome.svg';
+import Actives from './img/actives.svg';
+import Warning from './img/Warning.svg';
+import Heart from './img/heart.svg';
 import Exercicios from './img/exercicios.svg';
 import Distanciamento from './img/distanciamento.svg';
 import TapToTop from '../src/Components/TapToTop';
 import Api from './api/Api';
 import Numeral from 'numeral';
 import 'numeral/locales/pt-pt';
+import Header from '../src/Components/Header'
+import {Link} from 'react-scroll';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowRight,faVirus,faMoon,faSun,faPlayCircle} from '@fortawesome/free-solid-svg-icons'
+import { faArrowRight,faVirus,faMoon,faSun,faPlayCircle} from '@fortawesome/free-solid-svg-icons';
 import GraficoLinhaArea from '../src/Components/GraficosLinhaArea';
-/* GraficoLinhaArea
-import Corousel from 'react-elastic-carousel';
-import {Link} from 'react-scroll'; */
-
+import GraficoPie from '../src/Components/GraficosPie';
 export default function App() {
   Numeral.locale('pt-pt');
-/*   const formatarNumero = (stat) =>stat ? `+${Numeral(stat).format("0.0a")}` : "+0"; *//* 
-  const [check, setCheck] = useState(false); */
   const [scrollPosition, setScrollPosition] = useState(0);
   const [data, setData]=useState([]);
-
-
   const handleScroll = () => {
   const position = window.pageYOffset;
   setScrollPosition(position);
@@ -40,20 +38,6 @@ export default function App() {
         :
         document.body.classList.remove('dark');
   }
-/* 
-  const round = (num, places) => {
-    if (!("" + num).includes("e")) {
-        return +(Math.round(num + "e+" + places)  + "e-" + places);
-    } else {
-        let arr = ("" + num).split("e");
-        let sig = ""
-        if (+arr[1] + places > 0) {
-            sig = "+";
-        }
-        return +(Math.round(+arr[0] + "e" + sig + (+arr[1] + places)) + "e-" + places);
-    }
-  }  */
-
   useEffect(() => {
     let isActive = true;
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -71,42 +55,45 @@ export default function App() {
       isActive = false;
     }
   },[]);
-  /* console.log(data); */
   return (
     <div className="App">
       {scrollPosition > 50 && <TapToTop></TapToTop>}
       <section id="home" className="home">
-        <header>
-          <div className="container header">
-            <div className="logo">
-              <a href="/" rel="noreferrer"><img src={Logo} alt="Logo"/>
-              Covid-19 Angola
-              </a>
-            </div>
-            <div className="theme">
-                    <div>
-                        <input onChange={handlerClickCheck} type="checkbox" className="checkbox" id="chk" />
-                        <label className="label" htmlFor="chk">
-                        <FontAwesomeIcon icon={faMoon} />
-                        <FontAwesomeIcon icon={faSun} />
-                            <div className="ball"></div>
-                        </label>
-                    </div>
 
+      {scrollPosition > 50 ? 
+      <Header onClick={handlerClickCheck}></Header>
+      :
+      <header>
+      <div className="container header">
+        <div className="logo">
+          <a href="/" rel="noreferrer"><img src={Logo} alt="Logo"/>
+          Covid-19 Angola
+          </a>
+        </div>
+        <div className="theme">
+                <div>
+                    <input onChange={handlerClickCheck} type="checkbox" className="checkbox" id="chk" />
+                    <label className="label" htmlFor="chk">
+                    <FontAwesomeIcon icon={faMoon} />
+                    <FontAwesomeIcon icon={faSun} />
+                        <div className="ball"></div>
+                    </label>
                 </div>
-            <nav>
-              <ul>
-                <li>Home</li>
-                <li>Sintomas</li>
-                <li>Prevenção</li>
-                <li>Situação</li>
-                <li>App</li>
-              </ul>
-              <button>Covid-19 pelo mundo</button>
-            </nav>
-          </div>
-        </header>
-      
+
+            </div>
+        <nav>
+          <ul>
+            <li><Link  className="link" duration={1000} smooth={true} to="home">Home</Link></li>
+            <li><Link className="link" duration={1000} smooth={true} to="sintomas">Sintomas</Link></li>
+            <li><Link className="link" duration={1000} smooth={true} to="prevencao">Prevenção</Link></li>
+            <li><Link className="link" duration={1000} smooth={true} to="situacao">Situação</Link></li>
+            <li><Link className="link" duration={1000} smooth={true} to="app">App</Link></li>
+          </ul>
+          <button>Covid-19 pelo mundo</button>
+        </nav>
+      </div>
+    </header>
+      }
         <div className="stayhome container">
           <div className="stayhomeText">
             <h1>Fique em Casa</h1>
@@ -119,7 +106,7 @@ export default function App() {
               Covid-19 Angola
               <FontAwesomeIcon icon={faArrowRight} /> 
             </button>
-            <a target="_blank" rel="noreferrer"  href="https://www.cisp.gov.ao:10443/"><FontAwesomeIcon icon={faPlayCircle} /> Site oficial Covid-19 Angola</a>
+            <a target="_blank" rel="noreferrer"  href="https://www.cisp.gov.ao:10443/"><FontAwesomeIcon icon={faPlayCircle} /> Ver site oficial Covid-19 Angola</a>
           </div>
           <div className="stayhomeIcon">
           <img src={Home} alt="Home"/>
@@ -127,11 +114,11 @@ export default function App() {
         </div>
       
       </section>
-      <section className="sintomas">
+      <section id="sintomas" className="sintomas">
         <div className="titulo">
         <h1>Sintomas da <span>Covid-19</span></h1>
         <p>Esteja atento aos sintomas da covid-19 e previna-se.</p>
-        <a href="/" rel="noreferrer"><span>Fonte:</span> Organização Mundial da Saúde</a>
+        <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public" rel="noreferrer"><span>Fonte:</span> Organização Mundial da Saúde</a>
         </div>
         <div className="singrid container">
           <div className="Sincard1">
@@ -177,7 +164,7 @@ export default function App() {
           </div>
       </section>
     
-      <section className="prevencao ">
+      <section id="prevencao" className="prevencao ">
         <div className="prevent container">
         <div className="prevgrid">
           <div className="prevgrid1">
@@ -186,7 +173,7 @@ export default function App() {
           <h1>previna-se da <span>Covid-19</span></h1>
           <p>Fique em casa, tanto quanto possível. Não faça caminhadas aleatórias, não vá ter encontros com amigos cara a cara, proteja os mais velhos e compre apenas os bens estritamente essenciais, com responsabilidade.</p>
           <a href="https://www.cisp.gov.ao:10443/#sintomas" target="_blank" rel="noreferrer"><span>Fonte:</span> Organização Mundial da Saúde</a>
-          <a className="botao" href="https://www.cisp.gov.ao:10443/#sintomas" target="_blank" rel="noreferrer">
+          <a className="botao" href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/advice-for-public" target="_blank" rel="noreferrer">
               Saiba mais
             <FontAwesomeIcon icon={faArrowRight} /> 
             </a>
@@ -246,7 +233,7 @@ export default function App() {
         </div>
       </section>
 
-      <section className="situacao">
+      <section id="situacao" className="situacao">
         <div className="situa container">
         <div className="titulo">
           <h1>Situação da <span>Covid-19</span> em Angola</h1>
@@ -265,7 +252,7 @@ export default function App() {
           </div>
           <div className="activos">
           <div className="img">
-            
+          <img src={Actives} alt="mortes"/>
           </div>
           <div className="dados">
             <h1>{Numeral(data.active).format()}</h1>
@@ -274,7 +261,7 @@ export default function App() {
           </div>
           <div className="criticos">
           <div className="img">
-
+          <img src={Warning} alt="mortes"/>
           </div>
           <div className="dados">
             <h1>{Numeral(data.critical).format()}</h1>
@@ -283,6 +270,7 @@ export default function App() {
           </div>
           <div className="recuperados">
           <div className="img">
+          <img src={Heart} alt="mortes"/>
           </div>
           <div className="dados">
             <h1>{Numeral(data.recovered).format()}</h1>
@@ -303,14 +291,22 @@ export default function App() {
         </div>
       
         <div className="meses">
+          <div className="area-pie">
+          <h1>Percentagens da Covid-19</h1>
           <div className="mes1">
-            <h1>Situação da Covid-19 nos últimos 30 dias</h1>
+            <GraficoPie ></GraficoPie>
+          </div>
+          </div>
+          <div className="area-pie">
+          <h1>Situação da Covid-19 nos últimos 30 dias</h1>
+          <div className="mes2">
+            
             <GraficoLinhaArea ></GraficoLinhaArea>
           </div>
-          {/* <div className="mes2">
-            
-            </div> */}
+          </div>
         </div>
+
+        
 
         </div>
       </section>

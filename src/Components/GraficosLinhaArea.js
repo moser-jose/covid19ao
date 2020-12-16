@@ -55,6 +55,8 @@ export default class GraficosLinhaArea extends Component {
                     colors: ['#0a6ae0', '#0ca60c', '#ff0000'],
                     opacity: 0.4,
                 },
+                tooltip: {
+                    enabled: false,},
                 legend: {
                 show: true,
                 showForSingleSeries: true,
@@ -190,7 +192,7 @@ export default class GraficosLinhaArea extends Component {
               options={this.state.options}
               series={this.state.series}
               type="area"
-              width="100%"
+              width="700px"
             />
           </div>
         </div>
